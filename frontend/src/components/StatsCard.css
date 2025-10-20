@@ -1,0 +1,32 @@
+.stats-card .card-body {
+  padding: 1.5rem;
+}
+
+.stats-card .text-xs {
+  font-size: 0.8rem;
+}
+
+.stats-card .text-gray-300 {
+    color: #dddfeb !important;
+}
+
+.theme-dark .stats-card .text-gray-300 {
+    color: #5a5c69 !important;
+}
+
+/* Colored Borders */
+.border-left-primary {
+  border-left: 0.25rem solid var(--primary-color);
+}
+
+.border-left-success {
+  border-left: 0.25rem solid #1cc88a;
+}
+
+.border-left-info {
+  border-left: 0.25rem solid #36b9cc;
+}
+
+.border-left-warning {
+  border-left: 0.25rem solid #f6c23e;
+}

@@ -1,0 +1,139 @@
+/* Sidebar.css */
+.sidebar {
+  width: 250px;
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  transition: all 0.3s;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column; /* Arrange items vertically */
+}
+
+.sidebar-header {
+  padding: 0 20px 20px 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--sidebar-text);
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  flex-grow: 1; /* Allow this to grow and push footer items down */
+}
+
+.sidebar-nav-item {
+  padding: 0;
+}
+
+.sidebar-nav-link {
+  display: block;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  padding: 15px 20px;
+  transition: background-color 0.2s, padding-left 0.2s;
+}
+
+.sidebar-nav-link:hover {
+  background-color: var(--sidebar-link-hover-bg);
+  color: var(--sidebar-text);
+  padding-left: 25px;
+}
+
+.sidebar-nav-link.active {
+  background-color: var(--primary-color);
+  color: var(--primary-text);
+  font-weight: bold;
+}
+
+/* Footer items (logout, theme toggle) */
+.sidebar-footer {
+  list-style: none;
+  padding: 0;
+  margin-top: auto; /* Pushes to the bottom */
+  padding-bottom: 20px;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #c0392b; /* Red for logout - can be themed later if needed */
+}
+
+/* Theme Toggle Switch */
+.theme-toggle-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+}
+
+.theme-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.theme-toggle-switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .sidebar {
+    left: -250px; /* Hide sidebar by default on mobile */
+  }
+  .sidebar.toggled {
+    left: 0;
+  }
+}

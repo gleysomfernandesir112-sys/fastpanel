@@ -1,0 +1,95 @@
+/* CSS Variables for Theming */
+:root {
+  /* Light Theme */
+  --bg-color-light: #f0f2f5; /* A slightly off-white background */
+  --text-color-light: #212529;
+  --card-bg-light: #ffffff;
+  --sidebar-bg-light: #ffffff;
+  --sidebar-text-light: #333;
+  --sidebar-link-hover-bg-light: #e9ecef;
+  --border-color-light: #dee2e6;
+  --primary-color-light: #0d6efd;
+  --primary-text-light: #ffffff;
+
+  /* Dark Theme */
+  --bg-color-dark: #121212;
+  --text-color-dark: #e0e0e0;
+  --card-bg-dark: #1e1e1e;
+  --sidebar-bg-dark: #1e1e1e;
+  --sidebar-text-dark: #e0e0e0;
+  --sidebar-link-hover-bg-dark: #343a40;
+  --border-color-dark: #333;
+  --primary-color-dark: #0d6efd;
+  --primary-text-dark: #ffffff;
+}
+
+.theme-light {
+  --bg-color: var(--bg-color-light);
+  --text-color: var(--text-color-light);
+  --card-bg: var(--card-bg-light);
+  --sidebar-bg: var(--sidebar-bg-light);
+  --sidebar-text: var(--sidebar-text-light);
+  --sidebar-link-hover-bg: var(--sidebar-link-hover-bg-light);
+  --border-color: var(--border-color-light);
+  --primary-color: var(--primary-color-light);
+  --primary-text: var(--primary-text-light);
+}
+
+.theme-dark {
+  --bg-color: var(--bg-color-dark);
+  --text-color: var(--text-color-dark);
+  --card-bg: var(--card-bg-dark);
+  --sidebar-bg: var(--sidebar-bg-dark);
+  --sidebar-text: var(--sidebar-text-dark);
+  --sidebar-link-hover-bg: var(--sidebar-link-hover-bg-dark);
+  --border-color: var(--border-color-dark);
+  --primary-color: var(--primary-color-dark);
+  --primary-text: var(--primary-text-dark);
+}
+
+/* General Body Styles */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Override Bootstrap Component Styles */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.table {
+  --bs-table-bg: var(--card-bg);
+  --bs-table-color: var(--text-color);
+  --bs-table-border-color: var(--border-color);
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+}
+
+.form-control, .form-select {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(var(--primary-color-rgb), 0.25);
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--primary-text);
+}
