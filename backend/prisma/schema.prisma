@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  MASTER_RESELLER
+  RESELLER
+}
+
+// New enum for the type of content in a source playlist
+enum SourcePlaylistType {
+  LIVE
+  MOVIE
+  SERIES
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  email         String?  @unique
+  whatsapp      String?
+  password      String
+  role          Role
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // For hierarchy
+  createdById   Int?
+  createdBy     User?    @relation("UserHierarchy", fields: [createdById], references: [id])
+  subordinates  User[]   @relation("UserHierarchy")
+
+  // For Master Resellers
+  servers       Server[]
+
+  // For Resellers
+  clients       Client[]
+
+  registrationTokens RegistrationToken[] // Relation to generated tokens
+}
+
+model Client {
+  id              Int       @id @default(autoincrement())
+  username        String    @unique
+  password        String
+  m3uUrl          String?   // No longer unique, can be nullable initially
+  expirationDate  DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  resellerId      Int
+  reseller        User      @relation(fields: [resellerId], references: [id])
+
+  // Many-to-many relation with SourcePlaylist
+  sourcePlaylists SourcePlaylist[]
+}
+
+// New model for source M3U files
+model SourcePlaylist {
+  id        Int                @id @default(autoincrement())
+  name      String             @unique // e.g., "Canais SP", "Filmes 4K"
+  type      SourcePlaylistType // LIVE, MOVIE, or SERIES
+  filePath  String             @unique // Absolute path to the M3U file
+  streamCount Int              @default(0) // Number of streams in the playlist
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+
+  // Many-to-many relation with Client
+  clients   Client[]
+}
+
+model Server {
+  id        Int      @id @default(autoincrement())
+  name      String
+  url       String
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ownerId   Int
+  owner     User     @relation(fields: [ownerId], references: [id])
+}
+
+model RegistrationToken {
+  id          Int      @id @default(autoincrement())
+  token       String   @unique
+  role        Role
+  expiresAt   DateTime
+  usedAt      DateTime?
+  createdAt   DateTime @default(now())
+
+  createdById Int
+  createdBy   User     @relation(fields: [createdById], references: [id])
+}
+
+// Model for storing manual dashboard settings
+model DashboardSetting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
